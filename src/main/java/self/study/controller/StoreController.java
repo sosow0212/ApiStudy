@@ -25,4 +25,9 @@ public class StoreController {
     public ResponseEntity<?> upload(@RequestBody Store store) {
         return new ResponseEntity<>(storeService.save(store), HttpStatus.CREATED);
     }
+
+    @GetMapping("/api")
+    public ResponseEntity<?> testw() {
+        return new ResponseEntity<>(storeService.findAll(), HttpStatus.BAD_GATEWAY);
+    }
 }
