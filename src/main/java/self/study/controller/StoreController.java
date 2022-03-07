@@ -12,6 +12,8 @@ import self.study.entity.dto.Message;
 import self.study.entity.dto.StatusEnum;
 import self.study.service.StoreService;
 
+import java.util.List;
+
 @RestController
 public class StoreController {
 
