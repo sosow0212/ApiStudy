@@ -27,6 +27,11 @@ public class StoreApiController {
 
     @PostMapping("/api/upload")
     public ResponseEntity<?> upload(@RequestBody Store store) {
+        if(store.getTitle().equals("에러유발")) {
+            System.out.println("작동됨");
+            return new ResponseEntity<>("에러 발생 in controller", HttpStatus.INTERNAL_SERVER_ERROR);
+            // 실행 될 경우, JS에서 ajax.error()가 터진다.
+        }
         return new ResponseEntity<>(storeService.save(store), HttpStatus.CREATED);
     }
 

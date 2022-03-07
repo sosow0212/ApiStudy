@@ -22,7 +22,9 @@ public class StoreService {
 
     @Transactional
     public Store save(Store store) {
+
         storeRepository.save(store);
         return store;
     }
+
 }
