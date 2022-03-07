@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import self.study.entity.Store;
+import self.study.entity.dto.Message;
+import self.study.entity.dto.StatusEnum;
 import self.study.service.StoreService;
 
 @RestController
@@ -26,8 +28,14 @@ public class StoreController {
         return new ResponseEntity<>(storeService.save(store), HttpStatus.CREATED);
     }
 
-    @GetMapping("/api")
-    public ResponseEntity<?> testw() {
-        return new ResponseEntity<>(storeService.findAll(), HttpStatus.BAD_GATEWAY);
+    @GetMapping("/test")
+    public ResponseEntity<?> testFunc() {
+        // ResponseEntity<>(Data, headers(생략가능), 상태코드)
+        Message message = new Message();
+        message.setStatus(StatusEnum.OK);
+        message.setMessage("성공 코드");
+        message.setData(storeService.findAll());
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
 }
