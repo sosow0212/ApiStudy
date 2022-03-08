@@ -24,6 +24,25 @@ let index = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
+    },
 }
+
+
+// /upload 가면 GET 요청 실행
+// 추후에 리액트와 함께 쓰면, 렌더링도 가능
+function request() {
+    fetch('http://localhost:8080/store/1', {
+        method: 'GET',
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        });
+}
+request();
+
+
+
 index.init();
