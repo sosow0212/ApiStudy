@@ -3,10 +3,7 @@ package self.study.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import self.study.entity.Store;
 import self.study.entity.dto.Message;
 import self.study.entity.dto.StatusEnum;
@@ -43,6 +40,12 @@ public class StoreApiController {
         message.setMessage("성공 코드");
         message.setData(storeService.findAll());
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/store/{id}")
+    public ResponseEntity<?> storeView(@PathVariable("id") Integer id) {
+        Store store = storeService.findById(id);
+        return new ResponseEntity<>(store, HttpStatus.OK);
     }
 
 }

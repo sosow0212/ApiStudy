@@ -27,4 +27,13 @@ public class StoreService {
         return store;
     }
 
+    @Transactional(readOnly = true)
+    public Store findById(int id) {
+        Store store = storeRepository.findById(id)
+                .orElseThrow(()->{
+                    return new IllegalArgumentException("글 상세보기 실패, 아이디를 찾을 수 없습니다.");
+        });
+        return store;
+    }
+
 }
