@@ -22,7 +22,7 @@ public class StoreApiController {
         return new ResponseEntity<>(storeService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/api/upload")
+    @PostMapping("/upload")
     public ResponseEntity<?> upload(@RequestBody Store store) {
         if(store.getTitle().equals("에러유발")) {
             System.out.println("작동됨");
@@ -32,7 +32,7 @@ public class StoreApiController {
         return new ResponseEntity<>(storeService.save(store), HttpStatus.CREATED);
     }
 
-    @GetMapping("/test")
+    @GetMapping("/testhh")
     public ResponseEntity<?> testFunc() {
         // ResponseEntity<>(Data, headers(생략가능), 상태코드)
         Message message = new Message();
