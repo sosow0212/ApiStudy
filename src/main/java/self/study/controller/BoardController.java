@@ -25,8 +25,17 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public ResponseEntity<?> findBoardById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(boardService)
+        return new ResponseEntity<>(boardService.findById(id), HttpStatus.OK);
     }
 
+    @PostMapping("/board/{id}/edit")
+    public ResponseEntity<?> editBoard(@RequestBody Board board ,@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(boardService.editBoard(id, board), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/board/{id}/delete")
+    public ResponseEntity<?> deleteBoard(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(boardService.deleteBoard(id), HttpStatus.OK);
+    }
 
 }
