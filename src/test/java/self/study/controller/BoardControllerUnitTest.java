@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,6 +17,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import self.study.entity.Board;
 import self.study.service.BoardService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 // 단위 테스트 (Controller 관련 로직만 띄움)
@@ -46,8 +50,7 @@ public class BoardControllerUnitTest {
 
 
         // when (테스트 실행)
-        ResultActions resultActions =
-                mockMvc.perform(post("/board/write")
+        ResultActions resultActions = mockMvc.perform(post("/board/write")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(content)
                 .accept(MediaType.APPLICATION_JSON_UTF8));
@@ -62,4 +65,45 @@ public class BoardControllerUnitTest {
 
     }
 
+
+    @Test
+    public void findAll_test() throws Exception {
+        // given
+        List<Board> boards = new ArrayList<>();
+        boards.add(new Board(1, "제목1", "내용1"));
+        boards.add(new Board(2, "제목2", "내용2"));
+        when(boardService.findAll()).thenReturn(boards);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/board")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+        );
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$.[0].title").value("제목1"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+
+    @Test
+    public void findById_test() throws Exception {
+        // given
+        int id = 1;
+        Board board = new Board(1, "자바 스터디", "호호");
+        when(boardService.findById(id)).thenReturn(board);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/board/{id}", id)
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("자바 스터디"))
+                .andDo(MockMvcResultHandlers.print());
+    }
 }

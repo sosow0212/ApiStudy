@@ -3,6 +3,8 @@ package self.study.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,7 +15,14 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 import self.study.entity.Board;
+import self.study.repository.BoardRepository;
 
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,13 +45,27 @@ public class BoardControllerIntegreTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private EntityManager entityManager;
+    // Jpa의 구현체
+
+
+    @BeforeEach // 모든 테스트가 실행되기 전에 실행됨
+    public void init() {
+        entityManager.createNativeQuery("ALTER TABLE board AUTO_INCREMENT = 1").executeUpdate();
+    }
+
+
+
     @Test
     public void save_test() throws Exception {
         // given (테스트를 하기 위한 준비)
         Board board = new Board(1, "스프링테스트", "랄라");
         // Json 오브젝트를 주기 위해서 (컨트롤러에서는 @RestController를 사용해서 Json 데이터를 줘야함 = ObjectMapper 사용)
         String content = new ObjectMapper().writeValueAsString(board);
-
 
         // when (테스트 실행)
         ResultActions resultActions =
@@ -51,8 +74,6 @@ public class BoardControllerIntegreTest {
                         .content(content)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
-
-
         // then (검증)
         resultActions
                 .andExpect(status().isCreated())
@@ -60,4 +81,30 @@ public class BoardControllerIntegreTest {
                 .andDo(MockMvcResultHandlers.print());
 
     }
+
+
+    @Test
+    public void findAll_test() throws Exception {
+        // given
+        List<Board> boards = new ArrayList<>();
+        boards.add(new Board(1, "제목1", "내용1"));
+        boards.add(new Board(2, "제목2", "내용2"));
+        boardRepository.saveAll(boards);
+        // > 실제 DB에 데이터를 넣었다가 rollback 함 (transaction 때문에)
+
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/board")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+        );
+
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$.[0].title").value("제목1"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
 }
