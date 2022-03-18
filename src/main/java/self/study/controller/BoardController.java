@@ -20,7 +20,7 @@ public class BoardController {
 
     @PostMapping("/board/write")
     public ResponseEntity<?> writeBoard(@RequestBody Board board) {
-        return new ResponseEntity<>(boardService.writeBoard(board), HttpStatus.OK);
+        return new ResponseEntity<>(boardService.writeBoard(board), HttpStatus.CREATED);
     }
 
     @GetMapping("/board/{id}")
