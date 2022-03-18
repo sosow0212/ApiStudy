@@ -38,4 +38,5 @@ public class BoardController {
         return new ResponseEntity<>(boardService.deleteBoard(id), HttpStatus.OK);
     }
 
+
 }

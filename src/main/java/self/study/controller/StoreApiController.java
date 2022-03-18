@@ -47,5 +47,4 @@ public class StoreApiController {
         Store store = storeService.findById(id);
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
-
 }
