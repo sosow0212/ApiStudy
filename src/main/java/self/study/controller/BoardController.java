@@ -28,8 +28,8 @@ public class BoardController {
         return new ResponseEntity<>(boardService.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/board/{id}/edit")
-    public ResponseEntity<?> editBoard(@RequestBody Board board ,@PathVariable("id") Integer id) {
+    @PutMapping("/board/{id}/update")
+    public ResponseEntity<?> editBoard(@PathVariable("id") Integer id, @RequestBody Board board) {
         return new ResponseEntity<>(boardService.editBoard(id, board), HttpStatus.OK);
     }
 

@@ -51,6 +51,6 @@ public class BoardService {
             return new IllegalArgumentException("글이 없습니다..");
         });
         boardRepository.deleteById(id);
-        return id + "번호인 게시글이 삭제 되었습니다.";
+        return "ok";
     }
 }

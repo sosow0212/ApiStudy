@@ -1,10 +1,14 @@
 package self.study.domain;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
+import self.study.entity.Board;
 import self.study.repository.BoardRepository;
+
 
 /**
  * 단위 테스트 (DB 관련된 Bean들이 IoC에 등록되면 됨)
@@ -17,4 +21,14 @@ public class BoardRepositoryUnitTest {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Test
+    public void save_test() throws Exception {
+        //given
+
+        //when
+
+        //then
+
+    }
 }

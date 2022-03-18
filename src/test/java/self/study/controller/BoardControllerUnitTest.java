@@ -3,9 +3,11 @@ package self.study.controller;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import self.study.entity.Board;
@@ -105,5 +108,52 @@ public class BoardControllerUnitTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("자바 스터디"))
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+
+    @Test
+    public void update_test() throws Exception {
+        // given
+        int id = 2;
+        Board board = new Board(2, "업데이트 성공", "고고");
+        String content = new ObjectMapper().writeValueAsString(board);
+        when(boardService.editBoard(id, board)).thenReturn(new Board(2, "업데이트 성공", "고고"));
+
+        // when
+        ResultActions resultActions = mockMvc.perform(put("/board/{id}/update", id)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+        );
+
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("업데이트 성공"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+
+    @Test
+    public void delete_test() throws Exception {
+        // given
+        int id = 1;
+        when(boardService.deleteBoard(id)).thenReturn("ok");
+
+        // when
+        ResultActions resultActions = mockMvc.perform(delete("/board/{id}/delete", id));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        MvcResult requestResult = resultActions.andReturn();
+        String result = requestResult.getResponse().getContentAsString();
+
+        Assertions.assertEquals("ok", result);
+
     }
 }

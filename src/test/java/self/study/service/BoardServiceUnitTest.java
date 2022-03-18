@@ -1,9 +1,14 @@
 package self.study.service;
 
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import self.study.entity.Board;
 import self.study.repository.BoardRepository;
 
 /**
@@ -20,4 +25,19 @@ public class BoardServiceUnitTest {
     @Mock // Mock을 붙여야 BoardService 안에 repository가 테스트 파일에서 주입된다.
     private BoardRepository boardRepository;
 
+
+    @Test
+    public void save_test() throws Exception{
+        //given
+        Board board = new Board();
+        board.setTitle("제목1");
+        board.setContent("내용1");
+
+        //when
+        Board boardEntity = boardService.writeBoard(board);
+
+
+        //then
+        Assertions.assertEquals("제목1", boardEntity.getTitle());
+    }
 }

@@ -4,6 +4,7 @@ package self.study.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +23,7 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -83,6 +83,7 @@ public class BoardControllerIntegreTest {
     }
 
 
+
     @Test
     public void findAll_test() throws Exception {
         // given
@@ -107,4 +108,80 @@ public class BoardControllerIntegreTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+
+
+    @Test
+    public void findById_test() throws Exception {
+        // given
+        int id = 1;
+
+        List<Board> boards = new ArrayList<>();
+        boards.add(new Board(1, "제목1", "내용1"));
+        boards.add(new Board(2, "제목2", "내용2"));
+        boardRepository.saveAll(boards);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/board/{id}", id)
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("제목1"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+
+
+    @Test
+    public void update_test() throws Exception {
+        // given
+        int id = 2;
+
+        List<Board> boards = new ArrayList<>();
+        boards.add(new Board(1, "제목1", "내용1"));
+        boards.add(new Board(2, "제목2", "내용2"));
+        boardRepository.saveAll(boards);
+
+        Board board = new Board(2, "업데이트 성공", "고고");
+        String content = new ObjectMapper().writeValueAsString(board);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(put("/board/{id}/update", id)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+        );
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("업데이트 성공"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+
+    @Test
+    public void delete_test() throws Exception {
+        // given
+        int id = 1;
+
+        boardRepository.save(new Board(1, "제목1", "내용1"));
+
+        // when
+        ResultActions resultActions = mockMvc.perform(delete("/board/{id}/delete", id));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        MvcResult requestResult = resultActions.andReturn();
+        String result = requestResult.getResponse().getContentAsString();
+
+        Assertions.assertEquals("ok", result);
+
+    }
 }
