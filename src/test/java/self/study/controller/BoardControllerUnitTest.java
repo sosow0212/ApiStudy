@@ -40,7 +40,7 @@ public class BoardControllerUnitTest {
     @MockBean // boardService가 IoC환경에 bean 등록이 됨 가짜 서비스임!!
     private BoardService boardService;
 
-    // BDDMockito 패턴, Given When Tehn
+    // BDDMockito 패턴, Given When Then
     @Test
     public void save_test() throws Exception {
         // given (테스트를 하기 위한 준비)
