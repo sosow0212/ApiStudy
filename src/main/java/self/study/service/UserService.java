@@ -20,7 +20,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findUser(int id) {
-        return userRepository.findById(id).orElseThrow(()->{
+        return userRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("User Id를 찾을 수 없습니다.");
         });
     }
@@ -28,5 +28,21 @@ public class UserService {
     @Transactional
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public User updateUser(int id, User requestUser) {
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("User Id를 찾을 수 없습니다.");
+        });
+
+        user.setName(requestUser.getName());
+        return user;
+    }
+
+    @Transactional
+    public String deleteUser(int id) {
+        userRepository.deleteById(id);
+        return "Delete 성공!";
     }
 }
