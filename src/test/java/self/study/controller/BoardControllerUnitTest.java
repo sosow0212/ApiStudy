@@ -59,7 +59,6 @@ public class BoardControllerUnitTest {
                 .accept(MediaType.APPLICATION_JSON_UTF8));
 
 
-
         // then (검증)
         resultActions
                 .andExpect(status().isCreated())
@@ -89,7 +88,6 @@ public class BoardControllerUnitTest {
                 .andExpect(jsonPath("$.[0].title").value("제목1"))
                 .andDo(MockMvcResultHandlers.print());
     }
-
 
 
     @Test
@@ -133,7 +131,6 @@ public class BoardControllerUnitTest {
                 .andExpect(jsonPath("$.title").value("업데이트 성공"))
                 .andDo(MockMvcResultHandlers.print());
     }
-
 
 
     @Test
