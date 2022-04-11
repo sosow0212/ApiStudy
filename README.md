@@ -1,7 +1,7 @@
 ## Spring boot RestApi self Studying
 
 
-### 디펜던시
+### Dependency
 
 - Spring web
 - Lombok
