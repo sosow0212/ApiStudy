@@ -26,6 +26,9 @@ public class BodyControllerUnitTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private final Body body = new Body(1, "이재윤", 24, 186, 80, 0);
+
+
     @MockBean
     private BodyService bodyService;
 
@@ -33,7 +36,6 @@ public class BodyControllerUnitTest {
     @Test
     public void saveBody() throws Exception {
         // given
-        Body body = new Body(1, "이재윤", 24, 186, 80, 0);
         String content = new ObjectMapper().writeValueAsString(body);
         when(bodyService.saveBodyInfo(body)).thenReturn(new Body(1, "이재윤", 24, 186, 80, 0));
 
