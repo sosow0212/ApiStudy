@@ -36,7 +36,12 @@ public class BodyService {
         Body body = bodyRepository.findById(userId).orElseThrow(() -> {
            return new IllegalArgumentException("ID를 찾을 수 없습니다.");
         });
-        body = newBody;
+        body.setName(newBody.getName());
+        body.setAge(newBody.getAge());
+        body.setHeight(newBody.getHeight());
+        body.setWeight(newBody.getWeight());
+        body.setBmi(newBody.getBmi());
+
         return body;
     }
 

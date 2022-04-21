@@ -11,7 +11,7 @@ import self.study.service.BookService;
 import self.study.service.UserService;
 
 @RequiredArgsConstructor
-@RestController
+//@RestController
 public class Controller {
 
     private final UserService userService;

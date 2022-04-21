@@ -8,7 +8,7 @@ import self.study.entity.Board;
 import self.study.service.BoardService;
 
 @RequiredArgsConstructor
-@RestController
+//@RestController
 public class BoardController {
     private final BoardService boardService;
 
