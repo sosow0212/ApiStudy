@@ -8,7 +8,7 @@ import self.study.entity.Body;
 import self.study.service.BodyService;
 
 @RequiredArgsConstructor
-@RestController
+//@RestController
 public class BodyController {
 
     private final BodyService bodyService;

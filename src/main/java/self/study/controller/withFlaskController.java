@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-@RestController
+//@RestController
 public class withFlaskController {
     @GetMapping("/work")
     public ResponseEntity<?> work() {
