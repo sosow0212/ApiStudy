@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import self.study.entity.Board;
 import self.study.entity.dto.ControllerMessage;
+import self.study.entity.dto.StatusEnum;
 import self.study.service.BoardService;
 
 @RequiredArgsConstructor
@@ -28,14 +29,21 @@ public class JsonController {
     // ResponseEntity
     @GetMapping("/api/v2")
     public ResponseEntity apiV2() {
-        return new ResponseEntity(boardService.findById(1), HttpStatus.OK);
+        return new ResponseEntity(boardService.findById(1), HttpStatus.BAD_REQUEST);
     }
 
 
     // Message Object
     @GetMapping("/api/v3")
     public ControllerMessage apiV3() {
-        return new ControllerMessage(boardService.findById(1), "성공!", HttpStatus.OK);
+        return new ControllerMessage(HttpStatus.OK, "성공!", boardService.findById(1));
+    }
+
+
+    // ResponseEntity + Message
+    @GetMapping("/api/v4")
+    public ResponseEntity<?> apiV4() {
+        return new ResponseEntity<>(new ControllerMessage(HttpStatus.BAD_GATEWAY,"성공", boardService.findById(1)), HttpStatus.BAD_GATEWAY);
     }
 
 }
