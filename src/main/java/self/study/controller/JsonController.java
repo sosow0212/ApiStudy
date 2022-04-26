@@ -46,4 +46,10 @@ public class JsonController {
         return new ResponseEntity<>(new ControllerMessage(HttpStatus.BAD_GATEWAY,"성공", boardService.findById(1)), HttpStatus.BAD_GATEWAY);
     }
 
+    // ResponseEntity + Message2
+    @GetMapping("/api/v5")
+    public ResponseEntity<?> apiV5() {
+        return new ResponseEntity<>(new ControllerMessage(HttpStatus.OK, "데이터 반환", boardService.findAll()), HttpStatus.OK);
+    }
+
 }
