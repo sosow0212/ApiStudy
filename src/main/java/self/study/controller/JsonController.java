@@ -40,7 +40,7 @@ public class JsonController {
     }
 
 
-    // ResponseEntity + Message
+    // ResponseEntity + Message.
     @GetMapping("/api/v4")
     public ResponseEntity<?> apiV4() {
         return new ResponseEntity<>(new ControllerMessage(HttpStatus.BAD_GATEWAY,"성공", boardService.findById(1)), HttpStatus.BAD_GATEWAY);
