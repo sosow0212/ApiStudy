@@ -15,7 +15,7 @@ import self.study.entity.dto.StatusEnum;
 import self.study.service.BoardService;
 
 @RequiredArgsConstructor
-@RestController
+//@RestController
 public class JsonController {
 
     public final BoardService boardService;
