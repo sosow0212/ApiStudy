@@ -1,15 +1,14 @@
 package self.study.service;
 
-import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import self.study.entity.Board;
-import self.study.repository.BoardRepository;
+import self.study.entity.v1.Board;
+import self.study.repository.v1.BoardRepository;
+import self.study.service.v1.BoardService;
 
 /**
  * 단위테스트 (Service 관련된 Bean들만 메모리에 띄우면 됨)

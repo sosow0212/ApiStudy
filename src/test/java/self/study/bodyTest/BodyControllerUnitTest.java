@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import self.study.entity.Body;
-import self.study.service.BodyService;
+import self.study.entity.v1.Body;
+import self.study.service.v1.BodyService;
 
 import java.util.ArrayList;
 import java.util.List;

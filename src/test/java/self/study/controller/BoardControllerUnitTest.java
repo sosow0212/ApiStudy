@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import self.study.entity.Board;
-import self.study.service.BoardService;
+import self.study.entity.v1.Board;
+import self.study.service.v1.BoardService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
-import self.study.entity.Board;
-import self.study.repository.BoardRepository;
+import self.study.entity.v1.Board;
+import self.study.repository.v1.BoardRepository;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
