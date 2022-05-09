@@ -6,7 +6,7 @@
 - Spring web
 - Lombok
 - Thymeleaf
-- Jpa
+- JPA
 - MariaDB
 
 
