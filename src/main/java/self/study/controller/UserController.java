@@ -18,9 +18,16 @@ public class UserController {
 
     @ApiOperation(value = "전체 회원 보기", notes = "전체 회원을 조회한다.")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/auth")
-    public Response<?> find() {
+    @GetMapping("/users")
+    public Response<?> findAll() {
         return new Response<>("true", "조회 성공", userService.findAll());
+    }
+
+    @ApiOperation(value="유저 찾기", notes = "개별 유저 조회")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/users/{id}")
+    public Response<?> findUser(@PathVariable("id") Integer id) {
+        return new Response<>("true", "조회 성공", userService.findUser(id));
     }
 
     @ApiOperation(value = "회원가입", notes="회원가입 진행")

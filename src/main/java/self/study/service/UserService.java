@@ -26,4 +26,10 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    public User findUser(int id) {
+        return userRepository.findById(id).orElseThrow(()-> {
+            return new IllegalArgumentException("User ID를 찾을 수 없습니다.");
+        });
+    }
 }
