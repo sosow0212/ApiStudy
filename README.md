@@ -5,14 +5,14 @@
 
 - Spring web
 - Lombok
-- Thymeleaf
+- Thymeleaf (없어도 됨)
 - JPA
 - MariaDB
+- Spring Security
+- JWT
 
 
 ### 설명
 
-- RestAPI 사용을 위한 ResponseEntity<>() 공부
-
-> 프론트엔드는 fetch를 이용한 GET or POST 요청, 백엔드는 API(Json) 리턴
-> 추후에 리액트를 이용한 데이터 렌더링 가능
+- 회원가입 및 로그인은 Jwt + Spring Security로 구현 하였습니다.
+- 간단한 게시판 기능 + 댓글 기능 + 쪽지 기능을 REST API로 제작하였습니다.
