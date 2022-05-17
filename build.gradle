@@ -45,6 +45,13 @@ dependencies {
 
     // Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    // Spring Security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.7'
+
+    // jwt
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
+
 }
 
 tasks.named('test') {
