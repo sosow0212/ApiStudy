@@ -1,11 +1,11 @@
 package self.study.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import self.study.dto.RegisterDto;
 import self.study.entity.User;
 import self.study.repository.UserRepository;
-import self.study.response.Response;
 
 import java.util.List;
 
@@ -14,12 +14,14 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User register(RegisterDto registerDto) {
         User user = new User();
         user.setName(registerDto.getName());
-        user.setPassword(registerDto.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(registerDto.getPassword()));
         user.setUsername(registerDto.getUsername());
+        user.setRoles("ROLE_USER");
         return userRepository.save(user);
     }
 
