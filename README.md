@@ -5,7 +5,6 @@
 
 - Spring web
 - Lombok
-- Thymeleaf (없어도 됨)
 - JPA
 - MariaDB
 - Spring Security
