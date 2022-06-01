@@ -1,4 +1,4 @@
-## Spring boot RestApi self Studying
+## Spring boot RestAPI self Studying
 
 
 ### Dependency
@@ -9,7 +9,6 @@
 - MariaDB
 - Spring Security
 - JWT
-
 
 ### 설명
 
